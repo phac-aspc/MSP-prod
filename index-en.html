@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <link href="./GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="./GCWeb/css/wet-boew.min.css">
+    <link rel="stylesheet" href="./GCWeb/css/theme.min.css">
+    <link rel="stylesheet" href="./dependencies/leaflet.css">
+
+    <noscript>
+        <link rel="stylesheet" href="./wet-boew/css/noscript.min.css" /></noscript>
+
+    <title></title>
+    <style type="text/css">
+        .map {
+            height: 500px;
+            margin: 30px 0;
+        }
+
+        #project-list {
+            padding: 0;
+            margin: 0;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .project {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+
+        .headquarter:hover {
+            cursor: default;
+        }
+
+        .intersection:hover {
+            cursor: default;
+        }
+
+        /*#information{*/
+        /*    min-height: 300px;*/
+        /*}*/
+
+        /*#title-container{*/
+        /*    height: 50px;*/
+        /*}*/
+
+        #title {
+            margin: 0;
+        }
+
+        #title {
+            /*display: table-cell;*/
+            /*height: inherit;*/
+            margin-bottom: 5px;
+            /*vertical-align: bottom;*/
+        }
+
+        .partner {
+            display: inline-block;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 5px 2px;
+            color: #fff;
+            background-color: #2ed573;
+        }
+
+        #partners {
+            margin-bottom: 10px;
+        }
+
+        #default {
+            text-align: center;
+        }
+
+        #website {
+            text-decoration: none;
+            color: black;
+        }
+
+        .amount {}
+
+        .leaflet-left>.leaflet-control {
+            margin: 0;
+        }
+
+        #controls {
+            margin-top: 10px;
+        }
+
+        #controls>p {
+            margin: 10px 0;
+        }
+
+        #information {}
+
+        .controls {
+            height: 100px;
+        }
+
+        hr {
+            border-top: 1px solid black;
+        }
+
+        label {
+            text-transform: capitalize;
+        }
+
+        #targetPopulation {
+            width: 350px;
+        }
+
+        sup {
+            color: #e67e22;
+        }
+
+        option,
+        select {
+            text-transform: capitalize;
+        }
+
+        .project {
+            margin: 20px 0;
+        }
+
+        #information>p {
+            margin: 0;
+        }
+
+        .sorting {
+            margin-bottom: 20px;
+        }
+
+        .summary-stat {
+            /*float: right;*/
+            display: block;
+            font-weight: bold;
+        }
+
+        #summary>div {
+            margin: 20px 0;
+        }
+
+        #summary {
+            height: 100%;
+        }
+
+        .selection {
+            margin: 20px 0;
+        }
+
+        img {
+            max-width: 200px;
+            margin-right: 10px;
+        }
+
+        main {
+            margin-bottom: 20px;
+        }
+
+        #legend {
+            background-color: #c51b8a;
+            color: black;
+        }
+
+        .tooltip {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            opacity: 0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .icons {
+            text-align: right;
+        }
+
+        .icons>a {
+            text-decoration: none;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .bubble:hover {
+            cursor: pointer;
+        }
+
+        .bubble {
+            background-color: white;
+            display: inline-block;
+            border: 1px solid #ccc;
+            color: black;
+            font-size: 0.9em;
+            padding: 5px;
+            margin: 3px 2px 3px 0px;
+            border-radius: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .clicked {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .newTag {
+            background-color: #16a085;
+            color: white;
+            border-radius: 2px;
+            padding: 5px;
+            margin-left: 5px;
+            font-size: 0.7em;
+        }
+
+        .nonMspTag {
+            background-color: #d35400;
+            color: white;
+            border-radius: 2px;
+            padding: 2px;
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body vocab="http://schema.org/" typeof="WebPage">
+    <ul id="wb-tphp">
+        <li class="wb-slc">
+            <a class="wb-sl" href="#wb-cont">Skip to main content</a>
+        </li>
+        <li class="wb-slc">
+            <a class="wb-sl" href="#wb-info">Skip to "About government"</a>
+        </li>
+    </ul>
+    <header>
+        <div id="wb-bnr" class="container">
+            <section id="wb-lng" class="text-right">
+                <h2 class="wb-inv">Language selection</h2>
+                <ul class="list-inline margin-bottom-none">
+                    <li><a lang="fr" href="index-fr.html">Français</a></li>
+                </ul>
+            </section>
+            <div class="row">
+                <div class="brand col-xs-5 col-md-4">
+                    <a href="https://www.canada.ca/en.html"><img src="./GCWeb/assets/sig-blk-en.svg" alt=""><span
+                            class="wb-inv"> Government of Canada / <span lang="fr">Gouvernement du
+                                Canada</span></span></a>
+                </div>
+                <section id="wb-srch" class="col-lg-8 text-right">
+                    <h2>Search</h2>
+                    <form action="#" method="post" name="cse-search-box" role="search" class="form-inline">
+                        <div class="form-group">
+                            <label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
+                            <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q"
+                                type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca">
+                            <datalist id="wb-srch-q-ac">
+                            </datalist>
+                        </div>
+                        <div class="form-group submit">
+                            <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small"
+                                name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span
+                                    class="wb-inv">Search</span></button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <nav class="gcweb-menu" typeof="SiteNavigationElement">
+            <div class="container">
+                <h2 class="wb-inv">Menu</h2>
+                <button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu
+                    <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
+                <ul role="menu" aria-orientation="vertical" data-ajax-replace="./ajax/sitemenu-v2-en.html">
+                    <li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/jobs.html">Jobs
+                            and the workplace</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/immigration-citizenship.html">Immigration and
+                            citizenship</a></li>
+                    <li role="presentation"><a role="menuitem" href="https://travel.gc.ca/">Travel and tourism</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/business.html">Business and industry</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/benefits.html">Benefits</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/health.html">Health</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/taxes.html">Taxes</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/environment.html">Environment and natural
+                            resources</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/defence.html">National security and defence</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/culture.html">Culture, history and sport</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/policing.html">Policing, justice and emergencies</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/transport.html">Transport and infrastructure</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem"
+                            href="http://international.gc.ca/world-monde/index.aspx?lang=eng">Canada and the world</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/finance.html">Money and finances</a></li>
+                    <li role="presentation"><a role="menuitem"
+                            href="https://www.canada.ca/en/services/finance.html">Science and innovation</a></li>
+                </ul>
+            </div>
+        </nav>
+        <nav id="wb-bc" property="breadcrumb">
+            <h2>You are here:</h2>
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="https://www.canada.ca/en.html">Home</a></li>
+                </ol>
+            </div>
+        </nav>
+    </header>
+    <main property="mainContentOfPage" class="container">
+        <h1>Multi-Sectoral Partnerships to Promote Healthy Living and Prevent Chronic Disease<sup>Beta</sup></h1>
+        <div class="row">
+            <div class="col-lg-8 col-md-12" id="blog">
+                <p>
+                    <img src="healthnosmoke.png" alt="No smoking, man running and apple" align="left">
+                    Canada recognises that chronic diseases such as cancer, diabetes and cardiovascular disease are
+                    among the leading causes of death and reduced quality of life. Several common risk factors that
+                    contribute to chronic disease include physical inactivity and/or sedentary behaviour, unhealthy
+                    eating, smoking and harmful use of alcohol.
+                </p>
+                <p>Through the <a
+                        href="https://www.canada.ca/en/public-health/services/funding-opportunities/multi-sectoral-partnerships-promote-healthy-living-prevent-chronic-disease.html"
+                        target="_blank">Multi-sectoral Partnerships to Promote Healthy Living and Prevent Chronic
+                        Disease program</a>, PHAC invests about $20 million annually in projects that test or scale
+                    innovative ideas to encourage behaviour changes that will positively impact the health of Canadians.
+                </p>
+                <p>This interactive map provides information about currently funded projects, such as purpose, location
+                    and target population.</p>
+                <p>If you have any questions or would like to know more about the Multi-sectoral Partnerships to Promote
+                    Healthy Living and Prevent Chronic Disease program please contact: <a
+                        href="mailto:phac.psd-dps.aspc@canada.ca">phac.psd-dps.aspc@canada.ca</a></p>
+            </div>
+
+            <div class="col-lg-4 col-md-12 alert alert-info" id="summary">
+                <h3>Summary</h3>
+                <div>
+                    Number of projects: <span class="summary-stat" id="projectCount"></span>
+                </div>
+                <div>
+                    Public Health Agency of Canada funding: <span class="summary-stat" id="phacFunding"></span>
+                </div>
+                <div>
+                    Non-Tax Payer dollars: <span class="summary-stat" id="nonTaxPayer"></span>
+                </div>
+            </div>
+        </div>
+        <div id="funding-map" class="map col-xs-12"></div>
+        <hr>
+        <div class="row">
+            <div id="controls" class="col-lg-3 col-md-12 col-sm-12 ">
+                <label>Sort by:</label>
+                <br>
+                <div class="btn-group">
+                    <button class="btn btn-default sort active" id="alphabeticalSort" type="button">
+                        <i class="fas fa-sort-alpha-down"></i>
+                    </button>
+
+                    <button class="btn btn-default sort" id="amountSort" type="button">
+                        <i class="fas fa-dollar-sign"></i>
+                    </button>
+
+                    <button class="btn btn-default sort" id="timeSort" type="button">
+                        <i class="fas fa-calendar-week"></i>
+                    </button>
+                </div>
+                <hr>
+                <label for="age">Age</label>
+                <div id="age">
+                    <button class="bubble" id="infants">infants</button>
+                    <button class="bubble" id="children">children</button>
+                    <button class="bubble" id="youth">youth</button>
+                    <button class="bubble" id="adult">adult</button>
+                    <button class="bubble" id="olderAdults">older adult</button>
+                </div>
+
+                <br>
+
+                <label for="gender">Gender</label>
+                <div id="gender">
+                    <button class="bubble" id="male">male</button>
+                    <button class="bubble" id="female">female</button>
+                    <button class="bubble" id="genderDiverse">gender diverse</button>
+                </div>
+
+                <br>
+                <label for="interventionType">Intervention type</label>
+                <div id="interventionType">
+
+                </div>
+                <br>
+                <label for="commonRiskFactors">Common Risk Factors</label>
+                <div id="commonRiskFactors">
+
+                </div>
+            </div>
+            <div id="information" class="col-lg-9 col-md-12 col-sm-12">
+                <p><span id='results-count'>0</span> Result<span id='results-plural'>s</span></p>
+                <ul id="project-list"></ul>
+            </div>
+        </div>
+
+    </main>
+    <footer id="wb-info">
+        <div class="landscape">
+            <nav class="container wb-navcurr">
+                <h2 class="wb-inv">About government</h2>
+                <ul class="list-unstyled colcount-sm-2 colcount-md-3">
+                    <li><a href="https://www.canada.ca/en/contact.html">Contact us</a></li>
+                    <li><a href="https://www.canada.ca/en/government/dept.html">Departments and agencies</a></li>
+                    <li><a href="https://www.canada.ca/en/government/publicservice.html">Public service and military</a>
+                    </li>
+                    <li><a href="https://www.canada.ca/en/news.html">News</a></li>
+                    <li><a href="https://www.canada.ca/en/government/system/laws.html">Treaties, laws and
+                            regulations</a></li>
+                    <li><a href="https://www.canada.ca/en/transparency/reporting.html">Government-wide reporting</a>
+                    </li>
+                    <li><a href="https://pm.gc.ca/eng">Prime Minister</a></li>
+                    <li><a href="https://www.canada.ca/en/government/system.html">How government works</a></li>
+                    <li><a href="https://open.canada.ca/en/">Open government</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="brand">
+            <div class="container">
+                <div class="row">
+                    <nav class="col-md-9 col-lg-10 ftr-urlt-lnk">
+                        <h2 class="wb-inv">About this site</h2>
+                        <ul>
+                            <li><a href="https://www.canada.ca/en/social.html">Social media</a></li>
+                            <li><a href="https://www.canada.ca/en/mobile.html">Mobile applications</a></li>
+                            <li><a href="https://www1.canada.ca/en/newsite.html">About Canada.ca</a></li>
+                            <li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
+                            <li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+                        </ul>
+                    </nav>
+                    <div class="col-xs-6 visible-sm visible-xs tofpg">
+                        <a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
+                    </div>
+                    <div class="col-xs-6 col-md-3 col-lg-2 text-right">
+                        <img src="./GCWeb/assets/wmms-blk.svg" alt="Symbol of the Government of Canada">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
+
+    <script src="./wet-boew/js/wet-boew.min.js"></script>
+    <script src="./GCWeb/js/theme.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script crossorigin="anonymous"
+        src="https://polyfill.io/v3/polyfill.min.js?features=Object.keys%2CObject.assign%2CArray.prototype.includes"></script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+
+    <!--<script type="text/javascript" src="./dependencies/d3-circleCollision.min.js"></script>-->
+    <script type="text/javascript" src="./d3-circleCollision.min.js"></script>
+    <!-- map stuff -->
+    <script src="./dependencies/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+
+    <!-- My scripts -->
+    <script src="./js/tools/geotool.js"></script>
+    <script src="./js/tools/misc.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
